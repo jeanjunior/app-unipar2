@@ -1,5 +1,6 @@
 {
   "/usuarios": "/users",
+  "/usuarios/:id": "/users/:id",
   "/auth/login": "/authInfo",
   "/auth/info": "/authInfo"
 }
