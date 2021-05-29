@@ -12,6 +12,7 @@ import { HttpConfigInterceptor } from './shared/guards/http.interceptor';
 import localePt from '@angular/common/locales/pt';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 registerLocaleData(localePt);
 
 
@@ -21,6 +22,8 @@ registerLocaleData(localePt);
   ],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
