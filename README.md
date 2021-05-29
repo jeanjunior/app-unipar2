@@ -1,4 +1,4 @@
-# AppUnipar2
+# AppUnipar2 - Modularizado
 
 Aplicação front-end Angular 13 para aula de Pós Graduação - Unipar Toledo 2021
 
