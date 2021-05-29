@@ -13,7 +13,6 @@ export class AuthService {
   usuarioAutenticado = false;
   usuario?: UserSession;
 
-  //mostrarMenuEmitter = new EventEmitter<boolean>();
   onUserChange = new EventEmitter();
   rotaAtual = new EventEmitter<string>();
 
@@ -40,10 +39,10 @@ export class AuthService {
     // Padrão Basic Auth => Basic Base64(username:password)
     const tokenBasic: string = `Basic ${window.btoa(username + ':' + password)}`;
     const httpOptions = {
-      headers: new HttpHeaders({ Authorization: tokenBasic }),
+      headers: new HttpHeaders({ Authorization: tokenBasic })
       //observe: 'response' as 'body'
     };
-    return this.baseRest.post<UserSession>('auth/login', null, httpOptions).pipe(take(1));;
+    return this.baseRest.post<UserSession>('auth/login', null, httpOptions).pipe(take(1));
   }
 
 }

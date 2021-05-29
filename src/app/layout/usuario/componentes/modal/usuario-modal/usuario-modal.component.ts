@@ -1,33 +1,45 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { validateAllFormFields } from './../../../../../shared/helpers/iu.helper';
 import { ToastrService } from 'ngx-toastr';
-import { hasErrors, validateAllFormFields } from '../shared/helpers/iu.helper';
-import { UsuarioService } from '../shared/services/usuario.service';
-import { Usuario } from './usuario.model';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UsuarioService } from './../../../services/usuario.service';
+import { Usuario } from './../../../models/usuario.model';
+import { Component, createPlatform, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { hasErrors } from 'src/app/shared/helpers/iu.helper';
 
 @Component({
-  selector: 'app-form-usuario',
-  templateUrl: './form-usuario.component.html',
-  styleUrls: ['./form-usuario.component.scss']
+  selector: 'app-usuario-modal',
+  templateUrl: './usuario-modal.component.html',
+  styleUrls: ['./usuario-modal.component.scss']
 })
-export class FormUsuarioComponent implements OnInit {
+export class UsuarioModalComponent implements OnInit {
+
+  // Parâmetro para receber o usuário como entrada
+  @Input()
+  usuario: Usuario | undefined;
+
+  // Função para emitir de volta que o usuário for salvo (emite o novo usuário inserido/alterado)
+  @Output()
+  onSave: EventEmitter<Usuario> = new EventEmitter<Usuario>();
+
+  // Função para emitir de volta que o usuário for excluído
+  @Output()
+  onDelete: EventEmitter<void> = new EventEmitter<void>();
 
   formGroup?: FormGroup;
-  usuario?: Usuario;
 
   constructor(
+    private activeModal: NgbActiveModal,
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
-    private usuarioService: UsuarioService) {
-
-  }
+    private usuarioService: UsuarioService
+  ) { }
 
   ngOnInit(): void {
-    const usuario: any = {};
-    this.createForm(usuario);
+    this.createForm(this.usuario || {} as Usuario);
   }
 
-  private createForm(usuario: Usuario) {
+  createForm(usuario: Usuario) {
     this.formGroup = this.formBuilder.group({
       username: [
         { value: usuario.username, disabled: usuario.id !== undefined },
@@ -46,35 +58,44 @@ export class FormUsuarioComponent implements OnInit {
         Validators.compose([Validators.required, Validators.email])
       ]
     });
-
-    this.usuario = usuario;
   }
 
-  salvar() {
+  public salvar(): void {
     if (this.formGroup?.invalid) {
       this.toastr.error('Campos inválidos ou não preenchidos!');
       validateAllFormFields(this.formGroup);
       return;
     }
 
-    const usuarioForm = this.formGroup?.getRawValue() as Usuario;
+    // Pega as informações que estão no formGroup (que são os campos da tela)
+    const usuarioForm = this.formGroup?.getRawValue();
+    // Faz o merge dos objeto usuário inicial com os campos alterados na tela
     const usuario = { ...this.usuario, ...usuarioForm };
 
-    try {
-      // Chama o service para salvar na API
-      const userSaved = this.usuarioService.salvar(usuario)
-        .subscribe(result => {
-          this.toastr.success(`Usuário ${result.name} salvo com sucesso`, 'Ok');
-        }, error => {
-          this.toastr.error(error.message);
-        }, () => {
+    // Chama o service para salvar na API
+    this.usuarioService.salvar(usuario)
+      .subscribe(result => {
+        // Emite o evento que salvou com sucesso e passa o usuário que retornou do serviço atualizado
+        this.onSave.emit(result);
 
-        });
+        // Fecha o modal
+        this.activeModal.close();
+      }, error => {
+        this.toastr.error(error.message);
+      });
 
-    } catch (error) {
+  }
+
+  public excluir(): void {
+    this.usuarioService.excluir(this.usuario!.id!).subscribe(() => {
+      // Emite o evento que excluiu
+      this.onDelete.emit();
+
+      // Fecha o modal
+      this.activeModal.close();
+    }, error => {
       this.toastr.error(error.message);
-    }
-
+    });
   }
 
   get username() {

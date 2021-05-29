@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   private async getUserLoggedIn(): Promise<void> {
     const token = localStorage.getItem('token');
     if (token && token !== 'null' && token !== 'undefined') {
-      await this.getUserFromToken()
+      await this.getUserFromToken();
     } else {
       this.cleanLocalResources();
       this.execLogin = false;

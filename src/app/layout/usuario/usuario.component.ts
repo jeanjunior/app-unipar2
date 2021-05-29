@@ -14,10 +14,9 @@ import { debounceTime } from 'rxjs/operators';
 })
 export class UsuarioComponent implements OnInit {
 
-  usuarios?: Usuario[];
+  usuarios: Usuario[] = [];
   usuariosSearch: Usuario[] = [];
-
-  searchControl?: FormControl;
+  searchControl: FormControl = new FormControl();
 
   // Para todos os service que o componente for usar precisa ser injetado recebendo pelo construtor
   constructor(
@@ -25,13 +24,16 @@ export class UsuarioComponent implements OnInit {
     private usuarioService: UsuarioService,
     private modalService: NgbModal
   ) {
-    this.searchControl = new FormControl();
-    this.searchControl?.valueChanges
+
+    // pega os valueChange do campo de pesquisa, ai toda vez que o usuário digitar no campo irá cair e nós filtramos o usuário pelo nome
+    // debounceTime(500) => cria um timeOut para entrar no subscribe apenas quando o usuário para de digitar após 0.5segundos
+    this.searchControl.valueChanges
       .pipe(debounceTime(500))
       .subscribe(value => {
-        this.usuariosSearch = this.usuarios?.filter(u =>
-          u.name.toLocaleLowerCase().includes(value.toLocaleLowerCase())
-        ) || [];
+
+        // Chama a função para filtrar os usuarios
+        this.filtrarUsuarios(value.toLocaleLowerCase());
+
       });
   }
 
@@ -39,6 +41,14 @@ export class UsuarioComponent implements OnInit {
     // Quando iniciar a tela carrega os usuários através da api
     this.carregaUsuariosFromApi();
 
+  }
+
+  private filtrarUsuarios(value: string): void {
+    // Filtra os usuário e responde no array de usuários filtrados
+    this.usuariosSearch = this.usuarios.filter(u =>
+      // coloca o nome do usuário em minusculo para ignorar os maiusculos dos minusculos
+      u.name.toLocaleLowerCase().includes(value)
+    );
   }
 
   private carregaUsuariosFromApi(): void {
@@ -50,7 +60,9 @@ export class UsuarioComponent implements OnInit {
       .subscribe(result => {
         // pega o retorno recebido pela api e joga na nossa lista de usuários
         this.usuarios = result;
-        this.searchControl?.setValue('');
+
+        // Chama a função para filtrar os usuários para trazer toda a lista
+        this.filtrarUsuarios('');
 
       }, error => {
         // Deu erro na requisição
@@ -65,18 +77,34 @@ export class UsuarioComponent implements OnInit {
     // Passa o parâmetro do usuário para dentro
     modalRef.componentInstance.usuario = usuario;
 
-    // Pega a resposta emitidas
+    // Pega a resposta quando o usuário salvar no modal
     modalRef.componentInstance.onSave.subscribe((result: Usuario) => {
       this.toastr.success('Usuário salvo com sucesso!');
 
       if (!usuario?.id) {
         // Se não tiver id no usuário de entrada então é uma insert
-        this.usuarios?.push(result);
+        this.usuarios.push(result);
       } else {
-        // Atualiza a variável usuário que irá refletir na lista da tela
-        usuario = result;
+        // Remove o usuário anterior e insere o novo
+        const idx = this.usuarios.findIndex(u => u.id === result!.id);
+        this.usuarios.splice(idx, 1, result);
       }
+      this.limpaPesquisa();
     });
+
+    // Pega a resposta quando o usuário excluír no modal
+    modalRef.componentInstance.onDelete.subscribe(() => {
+      this.toastr.success('Usuário excluído com sucesso!');
+
+      // Acha o usuário no array inicial e demove ele
+      const idx = this.usuarios.findIndex(u => u.id === usuario!.id);
+      this.usuarios.splice(idx, 1);
+      this.limpaPesquisa();
+    });
+  }
+
+  private limpaPesquisa(): void {
+    this.searchControl?.setValue('');
   }
 
 }
