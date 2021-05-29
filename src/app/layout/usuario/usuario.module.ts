@@ -4,12 +4,14 @@ import { FormsModule } from '@angular/forms';
 import { UsuarioComponent } from './usuario.component';
 import { UsuarioRoutingModule } from './usuario-routing.module';
 import { UsuarioModalComponent } from './componentes/modal/usuario-modal/usuario-modal.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   imports: [
     FormsModule,
     CommonModule,
-    UsuarioRoutingModule
+    UsuarioRoutingModule,
+    SharedModule
   ],
   declarations: [
     UsuarioComponent,

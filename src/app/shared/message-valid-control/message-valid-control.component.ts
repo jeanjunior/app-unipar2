@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
-import { hasErrors } from '../../helpers/iu.helper';
+import { hasErrors } from '../helpers/iu.helper';
 
 @Component({
   selector: 'app-message-valid-control',
