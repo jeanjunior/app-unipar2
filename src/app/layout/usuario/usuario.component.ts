@@ -1,9 +1,11 @@
+import { FormControl } from '@angular/forms';
 import { UsuarioModalComponent } from './componentes/modal/usuario-modal/usuario-modal.component';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { Usuario } from './models/usuario.model';
 import { UsuarioService } from './services/usuario.service';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-usuario',
@@ -13,13 +15,25 @@ import { UsuarioService } from './services/usuario.service';
 export class UsuarioComponent implements OnInit {
 
   usuarios?: Usuario[];
+  usuariosSearch: Usuario[] = [];
+
+  searchControl?: FormControl;
 
   // Para todos os service que o componente for usar precisa ser injetado recebendo pelo construtor
   constructor(
     private toastr: ToastrService,
     private usuarioService: UsuarioService,
     private modalService: NgbModal
-  ) { }
+  ) {
+    this.searchControl = new FormControl();
+    this.searchControl?.valueChanges
+      .pipe(debounceTime(500))
+      .subscribe(value => {
+        this.usuariosSearch = this.usuarios?.filter(u =>
+          u.name.toLocaleLowerCase().includes(value.toLocaleLowerCase())
+        ) || [];
+      });
+  }
 
   ngOnInit(): void {
     // Quando iniciar a tela carrega os usuários através da api
@@ -36,6 +50,7 @@ export class UsuarioComponent implements OnInit {
       .subscribe(result => {
         // pega o retorno recebido pela api e joga na nossa lista de usuários
         this.usuarios = result;
+        this.searchControl?.setValue('');
 
       }, error => {
         // Deu erro na requisição
@@ -45,7 +60,7 @@ export class UsuarioComponent implements OnInit {
 
   public abrirModal(usuario: Usuario | undefined): void {
     // Instancia o modal
-    const modalRef = this.modalService.open(UsuarioModalComponent, { size: 'lg', });
+    const modalRef = this.modalService.open(UsuarioModalComponent, { size: 'lg' });
 
     // Passa o parâmetro do usuário para dentro
     modalRef.componentInstance.usuario = usuario;

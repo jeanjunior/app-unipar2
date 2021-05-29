@@ -1,13 +1,15 @@
-# AppUnipar2
+# AppUnipar2 - Modularizado
 
 Aplicação front-end Angular 13 para aula de Pós Graduação - Unipar Toledo 2021
 
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `npm install` download project dependencies.
 
-Run `start-server` start the server for mocks from api localhost on port 300.
+Run `ng serve` or `npm rum start` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+Run `npm rum start-server` start the server for mocks from api localhost on port 3000.
 
 ## Build
 
