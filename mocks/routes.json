@@ -1,6 +1,8 @@
 {
+  "/auth/login": "/authInfo",
+  "/auth/info": "/authInfo",
   "/usuarios": "/users",
   "/usuarios/:id": "/users/:id",
-  "/auth/login": "/authInfo",
-  "/auth/info": "/authInfo"
+  "/clientes": "/clientes",
+  "/clientes/:id": "/clientes/:id"
 }
