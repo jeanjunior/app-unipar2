@@ -1,3 +1,4 @@
+import { DragDropComponent } from './components/drag-drop/drag-drop.component';
 import { GraficoProdutoComponent } from './components/grafico-produto/grafico-produto.component';
 import { CardNumeroComponent } from './components/card-numero/card-numero.component';
 import { CardComponent } from './components/card/card.component';
@@ -23,7 +24,8 @@ import { DndModule } from 'ng2-dnd';
     CardGraficoComponent,
     CardComponent,
     CardNumeroComponent,
-    GraficoProdutoComponent
+    GraficoProdutoComponent,
+    DragDropComponent
   ],
   exports: [
     GraficoProdutoComponent

@@ -1,3 +1,4 @@
+import { NgSelectModule } from '@ng-select/ng-select';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -29,7 +30,8 @@ registerLocaleData(localePt);
     AppRoutingModule,
     NgbModule,
     ToastrModule.forRoot(),
-    HttpClientModule
+    HttpClientModule,
+    NgSelectModule
   ],
   providers: [AuthGuard,
     { provide: LOCALE_ID, useValue: 'pt' },

@@ -1,13 +1,16 @@
+import { ToastrService } from 'ngx-toastr';
 import { GraficoService } from './services/grafico.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { InfoChartViewModel, VendaMes } from './models/home.model';
+import { Router } from '@angular/router';
+import { interval, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
 
   public vendasPorMesValor: InfoChartViewModel =
     {
@@ -32,14 +35,32 @@ export class HomeComponent implements OnInit {
 
   public totalGeral: { qtde: number, valor: number } = { qtde: 0, valor: 0 };
 
+  private inscricaoInterval?: Subscription;
+
   constructor(
-    private graficoService: GraficoService
+    private graficoService: GraficoService,
+    private router: Router,
+    private toastrService: ToastrService
   ) { }
 
   ngOnInit(): void {
 
     this.buscarDadosVendaAsync();
 
+    // Vai emitir evento de 10 em 10s
+    this.inscricaoInterval =
+      interval(15000).subscribe((value: number) => {
+        // mostra a msg do contador
+        this.toastrService.success(value.toString());
+
+        // Chama a api
+        this.buscarDadosVendaAsync();
+      });
+
+  }
+
+  ngOnDestroy(): void {
+    this.inscricaoInterval?.unsubscribe();
   }
 
   private buscarDadosVenda(): void {
@@ -85,7 +106,7 @@ export class HomeComponent implements OnInit {
 
 
     // Somas os totais gerais
-    this.totalGeral.qtde = qtdes.reduce((pre, cur) => pre + cur, 0);
+    this.totalGeral.qtde = qtdes.reduce((pre, cur) => pre - cur, 0);
     this.totalGeral.valor = valores.reduce((pre, cur) => pre + cur, 0);
 
     //this.totalGeral.valor = vendas.reduce((soma, cur) => soma + cur.valor, 0);
@@ -115,6 +136,8 @@ export class HomeComponent implements OnInit {
 
   }
 
-  
+  public navegarParaDrag(): void {
+    this.router.navigate(['home/drag/jeannn']);
+  }
 
 }

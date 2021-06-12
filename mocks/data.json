@@ -35,11 +35,16 @@
         "logradouro": "minha rua",
         "numero": 123,
         "bairro": "Centro",
-        "cidade": "Toledo"
+        "cidade": {
+          "id": 2,
+          "nome": "Marechal",
+          "uf": "PR"
+        },
+        "cidadeId": 3
       },
       "dateInsert": "2021-06-10T00:17:14.484Z",
       "id": 1,
-      "dateUpdate": "2021-06-12T11:29:27.293Z"
+      "dateUpdate": "2021-06-12T20:52:10.368Z"
     },
     {
       "nome": "jrannnnn",
@@ -49,11 +54,15 @@
         "logradouro": "ruaaaa",
         "numero": 1.23,
         "bairro": "centro rural",
-        "cidade": "Toledo"
+        "cidade": {
+          "id": 3,
+          "nome": "Cascavel",
+          "uf": "PR"
+        }
       },
       "dateInsert": "2021-06-12T12:43:15.961Z",
       "id": 2,
-      "dateUpdate": "2021-06-12T12:59:18.758Z"
+      "dateUpdate": "2021-06-12T20:47:58.126Z"
     }
   ],
   "vendasPorMes": [
@@ -116,6 +125,23 @@
       "mes": "Dezembro",
       "quantidade": 68,
       "valor": 499
+    }
+  ],
+  "cidades": [
+    {
+      "id": 1,
+      "nome": "Toledo",
+      "uf": "PR"
+    },
+    {
+      "id": 2,
+      "nome": "Marechal",
+      "uf": "PR"
+    },
+    {
+      "id": 3,
+      "nome": "Cascavel",
+      "uf": "PR"
     }
   ]
 }

@@ -12,3 +12,9 @@ export interface VendaMes {
   quantidade: number;
   valor: number;
 }
+
+export interface Item {
+  id: number;
+  descricao: string;
+  preco: number;
+}

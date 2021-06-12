@@ -12,5 +12,12 @@ export interface Endereco {
   logradouro: string;
   numero: number;
   bairro: string;
-  cidade: string;
+  cidade: Cidade;
+  cidadeId: number;
+}
+
+export interface Cidade {
+  id: number;
+  nome: string;
+  uf: string;
 }

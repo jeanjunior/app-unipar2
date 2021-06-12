@@ -9,6 +9,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { ClienteRoutingModule } from './cliente-routing.module';
 import { TextMaskModule } from 'angular2-text-mask';
 import { CurrencyMaskModule } from "ng2-currency-mask";
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { CurrencyMaskModule } from "ng2-currency-mask";
     ToastrModule,
     TextMaskModule,
     CurrencyMaskModule,
-    HomeModule
+    HomeModule,
+    NgSelectModule
   ],
   declarations: [
     ClienteComponent,

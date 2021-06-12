@@ -1,3 +1,4 @@
+import { Cidade } from './../models/cliente.model';
 import { take } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -33,6 +34,10 @@ export class ClienteService extends BaseRestService {
 
   public excluir(id: number): Observable<void> {
     return this.delete(`clientes/${id}`).pipe(take(1));
+  }
+
+  public buscarCidades(): Observable<Cidade[]> {
+    return this.getter<Cidade[]>('cidades').pipe(take(1));
   }
 
 }
