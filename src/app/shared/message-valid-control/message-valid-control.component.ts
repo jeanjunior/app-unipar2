@@ -22,7 +22,8 @@ export class MessageValidControlComponent {
     minlength: (params: any) => `Por favor, forneça ao menos ${params.requiredLength} caracteres.`,
     max: (params: any) => `Por favor, forneça um valor menor ou igual a ${params.max}.`,
     maxlength: (params: any) => `Por favor, forneça não mais que ${params.requiredLength} caracteres.`,
-    pattern: (params: any) => `O formato fornecido é inválido. ${params.requiredPattern}.`
+    pattern: (params: any) => `O formato fornecido é inválido. ${params.requiredPattern}.`,
+    cpfNotValid: () => 'O CPF é inválido.'
   };
 
   constructor() { }

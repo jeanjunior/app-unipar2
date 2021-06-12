@@ -16,7 +16,10 @@
       <!-- Campo de CPF -->
       <div class="col-md-4 mt-1 form-group">
         <label class="form-control-label">CPF</label>
-        <input type="text" class="form-control" formControlName="cpf">
+        <input type="text" 
+              class="form-control" 
+              formControlName="cpf" 
+              [textMask]="{ mask: maskCPF, guide: true }">
         <app-message-valid-control [control]="getControl('cpf')"> </app-message-valid-control>
       </div>
 
@@ -40,7 +43,7 @@
       <!-- Número -->
       <div class="col-md-4 mt-1 form-group">
         <label class="form-control-label">Número</label>
-        <input type="number" class="form-control" formControlName="numero">
+        <input type="text" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" class="form-control" formControlName="numero">
         <app-message-valid-control [control]="getControl('endereco.numero')"> </app-message-valid-control>
       </div>
 

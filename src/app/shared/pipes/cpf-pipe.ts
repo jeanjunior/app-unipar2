@@ -1,4 +1,4 @@
-import { formatToCPF, formatToCNPJ } from './../helpers/utils.helper';
+import { formatToCPF, formatToCNPJ, mapToNumeric } from './../helpers/utils.helper';
 import { Pipe, PipeTransform } from "@angular/core";
 
 @Pipe({ name: 'cpf' })
@@ -14,7 +14,7 @@ export class CpfPipe implements PipeTransform {
 export class CpfOrCnpjPipe implements PipeTransform {
 
   transform(value: string | null) {
-    const str = value || '';
+    const str = mapToNumeric(value || '');
     if (str.length === 11) {
       return formatToCPF(str);
     } else if (str.length === 14) {

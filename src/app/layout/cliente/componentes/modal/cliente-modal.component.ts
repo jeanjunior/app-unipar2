@@ -1,5 +1,6 @@
+import { GenericValidator } from './../../../../shared/helpers/validators.helper';
+import { maskCPF } from './../../../../shared/helpers/utils.helper';
 import { Endereco } from './../../models/cliente.model';
-import { Usuario } from './../../../usuario/models/usuario.model';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
@@ -26,6 +27,8 @@ export class ClienteModalComponent implements OnInit {
 
   formGroup?: FormGroup;
 
+  public maskCPF = maskCPF;
+
   constructor(
     private activeModal: NgbActiveModal,
     private formBuilder: FormBuilder,
@@ -45,7 +48,7 @@ export class ClienteModalComponent implements OnInit {
       ],
       cpf: [
         cliente.cpf,
-        Validators.compose([Validators.required])
+        Validators.compose([Validators.required, GenericValidator.isValidCpf()])
       ],
       dataNascimento: [
         cliente.dataNascimento,
