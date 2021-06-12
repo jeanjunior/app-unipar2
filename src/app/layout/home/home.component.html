@@ -1,1 +1,75 @@
-<p>... Home ...</p>
+<div class="row principal">
+
+  <!-- Vendas por Mês - Valor -->
+  <div class="col-md-6">
+    <div class="atom-container">
+      <header>
+        <h5>Vendas por mês - Valor</h5>
+        <button class="btn" (click)="buscarDadosVendaAsync()">Atualizar</button>
+      </header>
+      <div class="atom-body form-row">
+        <canvas baseChart *ngIf="!vendasPorMesValor.loading"
+                [datasets]="vendasPorMesValor.datasets"
+                [labels]="vendasPorMesValor.labels"
+                [options]="{ responsive: true }"
+                [legend]="false"
+                [chartType]="'line'">
+        </canvas>
+        <div class="d-flex justify-content-center" *ngIf="vendasPorMesValor.loading">
+          <div class="spinner-border" style="width: 10rem; height: 10rem;" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Vendas por Mês - Qtde -->
+  <div class="col-md-6">
+    <div class="atom-container">
+      <header>
+        <h5>Vendas por mês - Qtde</h5>
+        <button class="btn" (click)="buscarDadosVendaAsync()">Atualizar</button>
+      </header>
+      <div class="atom-body form-row">
+        <canvas baseChart *ngIf="!vendasPorMesQtde.loading"
+                [datasets]="vendasPorMesQtde.datasets"
+                [labels]="vendasPorMesQtde.labels"
+                [options]="{ responsive: true, legend: { position: 'bottom' } }"
+                [legend]="true"
+                [chartType]="'pie'">
+        </canvas>
+        <div class="d-flex justify-content-center" *ngIf="vendasPorMesQtde.loading">
+          <div class="spinner-border" style="width: 10rem; height: 10rem;" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Vendas por Mês - Valor e Qtde -->
+  <div class="col-md-6">
+    <div class="atom-container">
+      <header>
+        <h5>Vendas por mês - Valor e Qtde</h5>
+        <button class="btn" (click)="buscarDadosVendaAsync()">Atualizar</button>
+      </header>
+      <div class="atom-body form-row">
+        <canvas baseChart *ngIf="!vendasPorMesValorQtde.loading"
+                [datasets]="vendasPorMesValorQtde.datasets"
+                [labels]="vendasPorMesValorQtde.labels"
+                [options]="{ responsive: true }"
+                [legend]="true"
+                [chartType]="'bar'">
+        </canvas>
+        <div class="d-flex justify-content-center" *ngIf="vendasPorMesValorQtde.loading">
+          <div class="spinner-border" style="width: 10rem; height: 10rem;" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

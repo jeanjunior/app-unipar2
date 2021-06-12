@@ -4,5 +4,6 @@
   "/usuarios": "/users",
   "/usuarios/:id": "/users/:id",
   "/clientes": "/clientes",
-  "/clientes/:id": "/clientes/:id"
+  "/clientes/:id": "/clientes/:id",
+  "/graficos/vendas-por-mes": "/vendasPorMes"
 }
