@@ -9,6 +9,8 @@ import { Cliente } from '../models/cliente.model';
 })
 export class ClienteService extends BaseRestService {
 
+  public countSaved: number = 0;
+
   public buscarTodos(): Observable<Cliente[]> {
     return this.getter<Cliente[]>('clientes').pipe(take(1));
   }
@@ -18,6 +20,7 @@ export class ClienteService extends BaseRestService {
   }
 
   public salvar(cliente: Cliente): Observable<Cliente> {
+    this.countSaved++;
     // Verifica se o cliente já tem ID, se tiver chama o PUT para atual, senão o POST para inserir
     if (cliente.id) {
       cliente.dateUpdate = new Date();

@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Cliente } from './models/cliente.model';
 import { ClienteService } from './services/cliente.service';
 import { debounceTime } from 'rxjs/operators';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-cliente',
@@ -22,7 +23,8 @@ export class ClienteComponent implements OnInit {
   constructor(
     private toastr: ToastrService,
     private clienteService: ClienteService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    public authService: AuthService
   ) {
 
     // pega os valueChange do campo de pesquisa, ai toda vez que o usuário digitar no campo irá cair e nós filtramos o usuário pelo nome
