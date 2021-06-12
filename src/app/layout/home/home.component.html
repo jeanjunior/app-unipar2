@@ -16,7 +16,7 @@
                       [dados]="vendasPorMesQtde"
                       [typeChart]="'bar'"
                       (onRefresh)="buscarDadosVendaAsync()">
-      </app-card-grafico>
+    </app-card-grafico>
   </div>
 
   <!-- Vendas por Mês - Valor e Qtde -->
@@ -42,6 +42,14 @@
         
       </div>
     </app-card>
+  </div>
+
+  <!-- Vendas por Produto -->
+  <div class="col-md-6">
+    
+    <app-grafico-produto>
+    </app-grafico-produto>
+
   </div>
 
 </div>

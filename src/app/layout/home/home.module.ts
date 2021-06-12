@@ -1,3 +1,4 @@
+import { GraficoProdutoComponent } from './components/grafico-produto/grafico-produto.component';
 import { CardNumeroComponent } from './components/card-numero/card-numero.component';
 import { CardComponent } from './components/card/card.component';
 import { NgModule } from '@angular/core';
@@ -21,7 +22,11 @@ import { DndModule } from 'ng2-dnd';
     HomeComponent,
     CardGraficoComponent,
     CardComponent,
-    CardNumeroComponent
+    CardNumeroComponent,
+    GraficoProdutoComponent
+  ],
+  exports: [
+    GraficoProdutoComponent
   ]
 })
 export class HomeModule { }

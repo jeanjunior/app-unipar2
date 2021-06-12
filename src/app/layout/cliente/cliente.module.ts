@@ -1,3 +1,4 @@
+import { HomeModule } from './../home/home.module';
 import { ClienteModalComponent } from './componentes/modal/cliente-modal.component';
 import { ClienteComponent } from './cliente.component';
 import { NgModule } from '@angular/core';
@@ -18,7 +19,8 @@ import { CurrencyMaskModule } from "ng2-currency-mask";
     SharedModule,
     ToastrModule,
     TextMaskModule,
-    CurrencyMaskModule
+    CurrencyMaskModule,
+    HomeModule
   ],
   declarations: [
     ClienteComponent,
