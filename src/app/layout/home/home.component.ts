@@ -30,6 +30,7 @@ export class HomeComponent implements OnInit {
       labels: []
     };
 
+  public totalGeral: { qtde: number, valor: number } = { qtde: 0, valor: 0 };
 
   constructor(
     private graficoService: GraficoService
@@ -81,6 +82,17 @@ export class HomeComponent implements OnInit {
       { data: qtdes, label: 'Qtde' }
     ];
     this.vendasPorMesValorQtde.labels = labels;
+
+
+    // Somas os totais gerais
+    this.totalGeral.qtde = qtdes.reduce((pre, cur) => pre + cur, 0);
+    this.totalGeral.valor = valores.reduce((pre, cur) => pre + cur, 0);
+
+    //this.totalGeral.valor = vendas.reduce((soma, cur) => soma + cur.valor, 0);
+    // for (const v of vendas) {
+    //   this.totalGeral.valor += v.valor;
+    //   this.totalGeral.qtde += v.quantidade;
+    // }
 
   }
 
