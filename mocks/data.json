@@ -45,24 +45,6 @@
       "dateInsert": "2021-06-10T00:17:14.484Z",
       "id": 1,
       "dateUpdate": "2021-06-12T20:52:10.368Z"
-    },
-    {
-      "nome": "jrannnnn",
-      "cpf": "081.243.959-77",
-      "dataNascimento": "2000-01-01",
-      "endereco": {
-        "logradouro": "ruaaaa",
-        "numero": 1.23,
-        "bairro": "centro rural",
-        "cidade": {
-          "id": 3,
-          "nome": "Cascavel",
-          "uf": "PR"
-        }
-      },
-      "dateInsert": "2021-06-12T12:43:15.961Z",
-      "id": 2,
-      "dateUpdate": "2021-06-12T20:47:58.126Z"
     }
   ],
   "vendasPorMes": [
